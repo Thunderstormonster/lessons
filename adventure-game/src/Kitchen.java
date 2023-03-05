@@ -10,6 +10,6 @@ public class Kitchen {
         this(name,"");
     }
 
-    private Item[] items={new Item("Выдвижной ящик","Верхний ящик под столешницей")};
+    public static Item[] items={new Item("Выдвижной ящик","Верхний ящик под столешницей")};
 
 }
