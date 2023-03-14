@@ -7,9 +7,31 @@ public class Game {
     private static Bedroom bedroom1=new Bedroom("Спальня","Просторная спальня с двуспальной кроватью");
     private static Kitchen kitchen1=new Kitchen("Кухня","Большая кухня с совмещенной столовой");
 
-    public static void main(String[] args) {
-        System.out.println("Добро пожаловать в игру House, твоя цель - найти выход из дома");
+    private static Room[] rooms={bathroom1,bedroom1,kitchen1};
 
+    public static int showMenu(){
+        System.out.println("2. Показать инвентарь;");
+        System.out.println("1. Перейти в другую комнату;");
+        System.out.println("0. Выход.");
+
+        Scanner num=new Scanner(System.in);
+
+        return num.nextInt();
+    }
+    public static int showRooms(){
+        System.out.println("Все комнаты: ");
+        for(int i=0;i<rooms.length;i++){
+
+            System.out.printf("%d. %s; ",i,rooms[i].name);
+
+        }
+        Scanner num=new Scanner(System.in);
+
+        return num.nextInt();
+
+    }
+
+    public static void main(String[] args) {
         System.out.println("Для начала тебе нужно ввести твое имя игрока. Имя игрока: ");
 
         Scanner name = new Scanner(System.in);
@@ -18,35 +40,22 @@ public class Game {
 
         System.out.println(player1.name);
 
-        System.out.println("Введите комнату или ее описание: ");
+        do{
+            switch (showMenu()){
+                case 0:
+                    System. exit(0);
+                    break;
+                case 1:
+                    player1.setCurrentRoom(rooms[showRooms()]);
+                    break;
+                case 2:
+                    player1.showItems();
+                    break;
+            }
+        }while (!isGameFinished);
 
-        Scanner in=new Scanner(System.in);
-
-        switch(in.nextLine()){
-            case "Ванная комната":{
-                System.out.println("Описание комнаты: "+bathroom1.description);
-                break;
-            }
-            case "Спальня":{
-                System.out.println("Опсание комнаты: "+bedroom1.description);
-                break;
-            }
-            case "Кухня":{
-                System.out.println("Описание комнаты: "+kitchen1.description);
-                break;
-            }
-            case "Обычный совмещенный санузел":{
-                System.out.println("Название комнаты: "+bathroom1.name);
-                break;
-            }
-            case "Просторная спальня с двуспальной кроватью":{
-                System.out.println("Название комнаты: "+bedroom1.name);
-                break;
-            }
-            case "Большая кухня с совмещенной столовой":{
-                System.out.println("Название комнаты: "+kitchen1.name);
-                break;
-            }
+        if(isGameFinished){
+            System.out.println("Поздравляем, вы победили!");
         }
 
     }
