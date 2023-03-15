@@ -1,4 +1,4 @@
-public class Item {
+abstract class Item {
     String name;
     String description;
 
@@ -6,4 +6,6 @@ public class Item {
         this.name=name;
         this.description=description;
     }
+
+    public void use(){}
 }
