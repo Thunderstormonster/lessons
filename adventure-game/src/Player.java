@@ -35,7 +35,7 @@ public class Player {
         if(fm>currentRoom.items.length){
             System.out.println("Некорректный ввод2");
         }else {
-            if (currentRoom.items[fm].getClass().equals(Key.class) || currentRoom.items[fm].getClass().equals(Note.class)) {
+            if (currentRoom.items[fm] instanceof Collectible) {
 
                 System.out.println("Хотите взять(0) или вопользоваться(1)?");
 
