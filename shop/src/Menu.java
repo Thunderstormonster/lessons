@@ -16,7 +16,6 @@ public class Menu {
         String name;
         String description;
         Double price;
-        Categories type=null;
         Product created = null;
 
         System.out.println("1. Enter product name: ");
