@@ -10,10 +10,10 @@ public class Application {
     public static void showProduct(){
         System.out.println("All available products: \n");
         for(int i=0;i<stock.length;i++){
-            System.out.printf("Name: %s;\n",stock[i].name);
-            System.out.printf("Description: %s;\n",stock[i].description);
-            System.out.printf("Price: %f;\n",stock[i].price);
-            System.out.printf("Category: %s;\n",stock[i].type);
+            System.out.printf("Name: %s;\n",stock[i].getName());
+            System.out.printf("Description: %s;\n",stock[i].getDescription());
+            System.out.printf("Price: %f;\n",stock[i].getPrice());
+            System.out.printf("Category: %s;\n",stock[i].getType());
             System.out.println("------------------------------------------\n");
         }
     }
