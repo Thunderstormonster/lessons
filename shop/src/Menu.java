@@ -15,7 +15,7 @@ public class Menu {
 
         String name;
         String description;
-        Double price;
+        int price;
         Product created = null;
 
         System.out.println("1. Enter product name: ");
@@ -23,7 +23,7 @@ public class Menu {
         System.out.println("2. Enter product description: ");
         description=in.nextLine();
         System.out.println("3. Enter the price of the product: ");
-        price=in.nextDouble();
+        price=in.nextInt();
         System.out.println("4. Enter product category(Electronics,Furniture,Accessories): ");
 
         switch (in.next()){

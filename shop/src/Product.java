@@ -1,14 +1,18 @@
 public class Product {
     private String name;
     private String description;
-    private Double price;
+    private int price;
     private Categories type;
 
-    public Product(String name, String description, Double price,Categories type){
+    public Product(String name, String description, int price,Categories type){
         this.name=name;
         this.description=description;
         this.price=price;
         this.type=type;
+    }
+
+    public Product() {
+
     }
 
     public String getName(){
@@ -27,11 +31,11 @@ public class Product {
         this.description=description;
     }
 
-    public Double getPrice(){
+    public int getPrice(){
         return price;
     }
 
-    public void setPrice(Double price){
+    public void setPrice(int price){
         this.price=price;
     }
 
@@ -41,6 +45,11 @@ public class Product {
 
     public void setType(Categories type){
         this.type=type;
+    }
+
+    @Override
+    public String toString(){
+        return getName()+","+getDescription()+","+getPrice()+","+getType();
     }
 
 }

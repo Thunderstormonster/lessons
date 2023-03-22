@@ -1,28 +1,33 @@
+import java.io.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Application {
+    public static FileUtil file=new FileUtil();
+    public static ArrayList<Product> stock=file.readProduct();
 
-    public static Product[] stock={new Product("Smartphone","Xiaomi 12T Pro 12GB/256GB",2150.00,Categories.Electronics),
-                                    new Product("Sofa","a piece of furniture that a few people can comfortably sit on together",14900.00,Categories.Furniture),
-                                    new Product("Headphones","a hardware device that can be plugged into a computer, laptop, smartphone, mp3 player or other device to privately listen to audio without disturbing anyone in the vicinity",560.00,Categories.Accessories),
-                                    new Product("trash","",22.00,Categories.Accessories)};
+    /*public static Product[] stock={new Product("Smartphone","Xiaomi 12T Pro 12GB/256GB",2150,Categories.Electronics),
+                                    new Product("Settee Sofa","A settee has a wooden frame with a firm, straight back.",14900,Categories.Furniture),
+                                    new Product("Headphones","Sony WH-1000XM4",560,Categories.Accessories),
+                                    new Product("trash","",22,Categories.Accessories)};*/
 
     public static void showProduct(){
         System.out.println("All available products: \n");
-        for(int i=0;i<stock.length;i++){
-            System.out.printf("Name: %s;\n",stock[i].getName());
-            System.out.printf("Description: %s;\n",stock[i].getDescription());
-            System.out.printf("Price: %f;\n",stock[i].getPrice());
-            System.out.printf("Category: %s;\n",stock[i].getType());
+        for(int i=0;i<stock.size();i++){
+            System.out.printf("Name: %s;\n",stock.get(i).getName());
+            System.out.printf("Description: %s;\n",stock.get(i).getDescription());
+            System.out.printf("Price: %d;\n",stock.get(i).getPrice());
+            System.out.printf("Category: %s;\n",stock.get(i).getType());
             System.out.println("------------------------------------------\n");
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Menu shopMenu=new Menu();
 
         Scanner choice=new Scanner(System.in);
 
-        Product[] trashStock=new Product[2];
+        Product trashStock=null;
 
        while (true){
            switch (shopMenu.showMenu()){
@@ -33,11 +38,10 @@ public class Application {
                    showProduct();
                    break;
                case 2:
-                   trashStock[0]=shopMenu.createProduct();
-                   System.arraycopy(trashStock,0,stock,3,1);
+                   trashStock=shopMenu.createProduct();
+                   stock.add(trashStock);
+                   break;
            }
        }
-
-
     }
 }
