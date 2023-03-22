@@ -5,12 +5,15 @@ import java.util.Scanner;
 
 public class Application {
     public static FileUtil file=new FileUtil();
-    public static ArrayList<Product> stock=file.readProduct();
+    public static ArrayList<Product> stock;
 
-    /*public static Product[] stock={new Product("Smartphone","Xiaomi 12T Pro 12GB/256GB",2150,Categories.Electronics),
-                                    new Product("Settee Sofa","A settee has a wooden frame with a firm, straight back.",14900,Categories.Furniture),
-                                    new Product("Headphones","Sony WH-1000XM4",560,Categories.Accessories),
-                                    new Product("trash","",22,Categories.Accessories)};*/
+    static {
+        try {
+            stock = file.readProduct();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void showProduct(){
         System.out.println("All available products: \n");
@@ -27,7 +30,8 @@ public class Application {
 
         Scanner choice=new Scanner(System.in);
 
-        Product trashStock=null;
+        ArrayList<Product> newStock=new ArrayList<>();
+        Product product= null;
 
        while (true){
            switch (shopMenu.showMenu()){
@@ -38,8 +42,9 @@ public class Application {
                    showProduct();
                    break;
                case 2:
-                   trashStock=shopMenu.createProduct();
-                   stock.add(trashStock);
+                   product=shopMenu.createProduct();
+                   newStock.add(product);
+                   file.saveProducts(newStock);
                    break;
            }
        }

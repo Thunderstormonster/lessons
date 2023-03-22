@@ -3,29 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileUtil {
-    public void saveProducts(ArrayList<Product> products){
-        String csvFile = "F:/docs/products.csv";
-
-        try{
-            FileWriter fw=new FileWriter(csvFile,true);
-            PrintWriter pw=new PrintWriter(fw);
-            for(int i=0;i<products.size();i++) {
-                Product prod=new Product(products.get(i).getName(),products.get(i).getDescription(),products.get(i).getPrice(),products.get(i).getType());
-                pw.println(prod.toString());
-            }
-
-            pw.flush();
-            pw.close();
-
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public ArrayList<Product> readProduct() {
+    public ArrayList<Product> readProduct() throws FileNotFoundException {
         String csvFile = "F:/docs/products.csv";
         String line = "";
         Scanner scanner=null;
@@ -59,4 +37,24 @@ public class FileUtil {
         }
         return products;
     }
+
+    public void saveProducts(ArrayList<Product> products){
+        String csvFile = "F:/docs/products.csv";
+
+        try{
+            FileWriter fw=new FileWriter(csvFile,true);
+            PrintWriter pw=new PrintWriter(fw);
+            for(int i=0;i<products.size();i++) {
+                Product prod=new Product(products.get(i).getName(),products.get(i).getDescription(),products.get(i).getPrice(),products.get(i).getType());
+                pw.println(prod.toString());
+            }
+            pw.flush();
+            pw.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
