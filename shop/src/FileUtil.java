@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileUtil {
+    private static final String csvFile = "F:/docs/products.csv";
+
     public ArrayList<Product> readProduct() throws FileNotFoundException {
-        String csvFile = "F:/docs/products.csv";
         String line = "";
         Scanner scanner=null;
         int index=0;
@@ -33,14 +34,13 @@ public class FileUtil {
                 products.add(prod);
             }
         } catch (IOException e) {
+            System.out.println("Please, check your file and parameters");
             e.printStackTrace();
         }
         return products;
     }
 
     public void saveProducts(ArrayList<Product> products){
-        String csvFile = "F:/docs/products.csv";
-
         try{
             FileWriter fw=new FileWriter(csvFile,true);
             PrintWriter pw=new PrintWriter(fw);
