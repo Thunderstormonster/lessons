@@ -1,14 +1,19 @@
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class Product {
     private String name;
     private String description;
-    private int price;
+    private BigDecimal price;
     private Categories type;
+    private String date;
 
-    public Product(String name, String description, int price,Categories type){
+    public Product(String name, String description, BigDecimal price,Categories type,String date){
         this.name=name;
         this.description=description;
         this.price=price;
         this.type=type;
+        this.date=date;
     }
 
     public Product() {
@@ -31,11 +36,11 @@ public class Product {
         this.description=description;
     }
 
-    public int getPrice(){
+    public BigDecimal getPrice(){
         return price;
     }
 
-    public void setPrice(int price){
+    public void setPrice(BigDecimal price){
         this.price=price;
     }
 
@@ -47,9 +52,12 @@ public class Product {
         this.type=type;
     }
 
+    public void setDate(String date){this.date=date;}
+
+    public String getDate(){return date;}
     @Override
     public String toString(){
-        return getName()+","+getDescription()+","+getPrice()+","+getType();
+        return getName()+","+getDescription()+","+getPrice()+","+getType()+","+getDate();
     }
 
 }
