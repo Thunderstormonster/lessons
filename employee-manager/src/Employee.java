@@ -1,17 +1,19 @@
+import position.Position;
+
 import java.math.BigDecimal;
 
 public class Employee {
     private String name;
     private String surname;
     private int id;
-    private String position;
+    private Position position;
     private String dateOfEmployment;
     private BigDecimal salary;
     private String lastChangeOfSalary;
 
     public Employee(){}
 
-    public Employee(String name,String surname, int id,String position,String dateOfEmployment,BigDecimal salary,String lastChangeOfSalary){
+    public Employee(String name,String surname, int id,Position position,String dateOfEmployment,BigDecimal salary,String lastChangeOfSalary){
         this.name=name;
         this.surname=surname;
         this.id=id;
@@ -33,7 +35,7 @@ public class Employee {
         this.id = id;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -61,7 +63,7 @@ public class Employee {
         return id;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 

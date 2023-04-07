@@ -1,3 +1,8 @@
+package position;
+
+import position.Department;
+import position.Position;
+
 import java.math.BigDecimal;
 
 public class Manager implements Position {

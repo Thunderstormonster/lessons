@@ -1,3 +1,5 @@
+package position;
+
 public enum Department {
     MARKETING("Marketing"),
     HR("Human Resources"),

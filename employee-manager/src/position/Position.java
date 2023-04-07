@@ -1,3 +1,5 @@
+package position;
+
 import java.math.BigDecimal;
 
 public interface Position {

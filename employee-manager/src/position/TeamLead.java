@@ -1,6 +1,11 @@
+package position;
+
+import position.Department;
+import position.Position;
+
 import java.math.BigDecimal;
 
-public class TeamLead implements Position{
+public class TeamLead implements Position {
     private String name;
     private Department department;
     private BigDecimal salary;
