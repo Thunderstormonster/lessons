@@ -21,6 +21,6 @@ public class SeniorManager implements Position {
     public String getName(){return name;}
 
     public Department getDepartment(){return department;}
-    public BigDecimal getMinSalary(){return BigDecimal.valueOf(300);}
-    public BigDecimal getMaxSalary(){return BigDecimal.valueOf(600);}
+    public BigDecimal getMinSalary(){return BigDecimal.valueOf(700);}
+    public BigDecimal getMaxSalary(){return BigDecimal.valueOf(1100);}
 }

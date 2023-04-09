@@ -8,6 +8,9 @@ import java.util.Scanner;
 public class EmployeeManage {
 
     public static int showMenu(){
+        System.out.println("7. Lower employees position;");
+        System.out.println("6. Give a raise to the employee;");
+        System.out.println("5. Change employee salary;");
         System.out.println("4. Change department;");
         System.out.println("3. Remove employee;");
         System.out.println("2. Create new employee;");
@@ -114,6 +117,32 @@ public class EmployeeManage {
                     System.out.println("What employee do you wanna transfer? ");
                     int id=in.nextInt();
                     DepartmentManager.changeDepartment(FileManager.employees.get(id));
+                    break;
+                case 5:
+                    for(int i=0;i<FileManager.employees.size();i++){
+                        System.out.println(i+". "+FileManager.employees.get(i).toString());
+                    }
+                    System.out.println("What employee do you wanna change salary? ");
+                    int i2=in.nextInt();
+                    System.out.println("What salary do you want to set? ");
+                    int salary=in.nextInt();
+                    Accounting.changeSalary(FileManager.employees.get(i2),BigDecimal.valueOf(salary));
+                    break;
+                case 6:
+                    for(int i=0;i<FileManager.employees.size();i++){
+                    System.out.println(i+". "+FileManager.employees.get(i).toString());
+                    }
+                    System.out.println("What employee do you wanna give a raise? ");
+                    int i3=in.nextInt();
+                    DepartmentManager.raisePosition(FileManager.employees.get(i3));
+                    break;
+                case 7:
+                    for(int i=0;i<FileManager.employees.size();i++){
+                        System.out.println(i+". "+FileManager.employees.get(i).toString());
+                    }
+                    System.out.println("What employee do you wanna lower position? ");
+                    int i4=in.nextInt();
+                    DepartmentManager.lowerPosition(FileManager.employees.get(i4));
                     break;
             }
         }while (true);
