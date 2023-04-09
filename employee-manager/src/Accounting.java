@@ -4,13 +4,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//Текущая зарплата сотрудника должна быть в рамках его
-// должности и отдела: маркетинг - trainee (от 300 до 600),
-// specialist (от 500 до 1200), head of marketing (от 1000 до 2000);
-// hr - manager (от 400 до 800), senior manager (от 700 до 1100),
-// head of hr (от 800 до 1700); разработка - junior developer (от 400 до 1000),
-// middle developer (от 800 до 2000), senior developer (от 1800 до 4000),
-// team lead (от 2500 до 7000).
 
 public class Accounting {
     public static void changeSalary(Employee employee, BigDecimal salary){
