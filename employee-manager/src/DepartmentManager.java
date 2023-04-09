@@ -31,13 +31,13 @@ public class DepartmentManager {
             System.out.println("What position do you wanna set your employee? ");
             switch (in.next()){
                 case "Manager":employee.setPosition(new Manager());
-                    employee.setSalary(new Manager().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "SeniorManager":employee.setPosition(new SeniorManager());
-                    employee.setSalary(new SeniorManager().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "HeadOfHr":employee.setPosition(new HeadOfHR());
-                    employee.setSalary(new HeadOfHR().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 default: System.out.println("No such position");
                     break;
@@ -47,13 +47,13 @@ public class DepartmentManager {
             System.out.println("What position do you wanna set your employee? ");
             switch (in.next()){
                 case "Trainee":employee.setPosition(new Trainee());
-                    employee.setSalary(new Trainee().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "Specialist":employee.setPosition(new Specialist());
-                    employee.setSalary(new Specialist().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "HeadOfMarketing":employee.setPosition(new HeadOfMarketing());
-                    employee.setSalary(new HeadOfMarketing().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 default: System.out.println("No such position");
                     break;
@@ -63,16 +63,16 @@ public class DepartmentManager {
             System.out.println("What position do you wanna set your employee? ");
             switch (in.next()){
                 case "TeamLead":employee.setPosition(new TeamLead());
-                    employee.setSalary(new TeamLead().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "SeniorDeveloper":employee.setPosition(new SeniorDeveloper());
-                    employee.setSalary(new SeniorDeveloper().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "MiddleDeveloper":employee.setPosition(new MiddleDeveloper());
-                    employee.setSalary(new MiddleDeveloper().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 case "JuniorDeveloper":employee.setPosition(new JuniorDeveloper());
-                    employee.setSalary(new JuniorDeveloper().getMinSalary());
+                    employee.setSalary(employee.getPosition().getMinSalary());
                     break;
                 default: System.out.println("No such position");
                     break;
