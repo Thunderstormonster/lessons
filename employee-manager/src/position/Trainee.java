@@ -15,6 +15,9 @@ public class Trainee implements Position {
         this.department=department;
         this.salary=salary;
     }
+    public Trainee(Department department){
+        this.department=department;
+    }
 
     public Trainee(){}
 
@@ -23,6 +26,9 @@ public class Trainee implements Position {
     public Department getDepartment(){return department;}
     public BigDecimal getMinSalary(){return BigDecimal.valueOf(300);}
     public BigDecimal getMaxSalary(){return BigDecimal.valueOf(600);}
+    public void setDepartment(Department department){
+        this.department=department;
+    }
 
 
 }

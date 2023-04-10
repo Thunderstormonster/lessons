@@ -1,3 +1,4 @@
+import position.Department;
 import position.Position;
 
 import java.math.BigDecimal;

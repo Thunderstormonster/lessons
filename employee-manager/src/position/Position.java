@@ -7,4 +7,5 @@ public interface Position {
     Department getDepartment();
     BigDecimal getMinSalary();
     BigDecimal getMaxSalary();
+    void setDepartment(Department department);
 }

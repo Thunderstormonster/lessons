@@ -15,10 +15,15 @@ public class MiddleDeveloper implements Position {
         this.department=department;
         this.salary=salary;
     }
+    public MiddleDeveloper(Department department){
+        this.department=department;
+    }
 
     public MiddleDeveloper(){}
 
     public String getName(){return name;}
+
+    public void setDepartment(Department department){this.department=department;}
 
     public Department getDepartment(){return department;}
     public BigDecimal getMinSalary(){return BigDecimal.valueOf(800);}

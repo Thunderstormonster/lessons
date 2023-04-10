@@ -16,9 +16,14 @@ public class JuniorDeveloper implements Position {
         this.salary=salary;
     }
 
+    public JuniorDeveloper(Department department){
+        this.department=department;
+    }
     public JuniorDeveloper(){}
 
     public String getName(){return name;}
+
+    public void setDepartment(Department department){this.department=department;}
 
     public Department getDepartment(){return department;}
     public BigDecimal getMinSalary(){return BigDecimal.valueOf(400);}

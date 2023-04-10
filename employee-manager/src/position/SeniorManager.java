@@ -15,10 +15,15 @@ public class SeniorManager implements Position {
         this.department=department;
         this.salary=salary;
     }
+    public SeniorManager(Department department){
+        this.department=department;
+    }
 
     public SeniorManager(){}
 
     public String getName(){return name;}
+
+    public void setDepartment(Department department){this.department=department;}
 
     public Department getDepartment(){return department;}
     public BigDecimal getMinSalary(){return BigDecimal.valueOf(700);}

@@ -2,10 +2,15 @@ import position.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class DepartmentManager {
+
+    static Position[] marketing=new Position[]{new Trainee(),new Specialist(),new HeadOfMarketing()};
+    static Position[] hr=new Position[]{new Manager(),new SeniorManager(),new HeadOfHR()};
+    static Position[] development=new Position[]{new JuniorDeveloper(),new MiddleDeveloper(),new SeniorDeveloper(),new TeamLead()};
+
+
     public static void changeDepartment(Employee employee) {
 
         Scanner in = new Scanner(System.in);
@@ -83,111 +88,105 @@ public class DepartmentManager {
     }
 
     public static void raisePosition(Employee employee){
-        BigDecimal salary;
-
         Scanner in=new Scanner(System.in);
-        if(employee.getPosition() instanceof Trainee){
-            employee.setPosition(new Specialist());
-            System.out.println("What salary do you wanna set?(500-1200)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof Specialist){
-            employee.setPosition(new HeadOfMarketing());
-            System.out.println("What salary do you wanna set?(1000-2000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof HeadOfMarketing){
-            System.out.println("You can't give a raise to this employee. He is already on the highest position");
-        }else if(employee.getPosition() instanceof Manager){
-            employee.setPosition(new SeniorManager());
-            System.out.println("What salary do you wanna set?(700-1100)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof SeniorManager){
-            employee.setPosition(new HeadOfHR());
-            System.out.println("What salary do you wanna set?(800-1700)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof HeadOfHR){
-            System.out.println("You can't give a raise to this employee. He is already on the highest position");
-        }else if(employee.getPosition() instanceof JuniorDeveloper){
-            employee.setPosition(new MiddleDeveloper());
-            System.out.println("What salary do you wanna set?(800-2000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof MiddleDeveloper){
-            employee.setPosition(new SeniorDeveloper());
-            System.out.println("What salary do you wanna set?(1800-4000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof SeniorDeveloper){
-            employee.setPosition(new TeamLead());
-            System.out.println("What salary do you wanna set?(2500-7000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof TeamLead){
-            System.out.println("You can't give a raise to this employee. He is already on the highest position");
+
+        if(employee.getPosition().getDepartment().equals(Department.HR)){
+            if(employee.getPosition().getClass().equals(hr[hr.length-1].getClass())){
+                System.out.println("You can't give a raise to this employee. He is already on the highest position");
+            }else {
+                for (int i = 0; i < hr.length-1; i++) {
+                    if (employee.getPosition().getClass().equals(hr[i].getClass())) {
+                        i++;
+                        System.out.println("What salary do you wanna set?(" + hr[i].getMinSalary() + "-" + hr[i].getMaxSalary() + ")");
+                        int salary = in.nextInt();
+                        hr[i].setDepartment(Department.HR);
+                        employee.setPosition(hr[i]);
+                        Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+                    }
+                }
+            }
+        }else if(employee.getPosition().getDepartment().equals(Department.MARKETING)){
+            if(employee.getPosition().getClass().equals(marketing[marketing.length-1].getClass())){
+                System.out.println("You can't give a raise to this employee. He is already on the highest position");
+            }else {
+                for (int i = 0; i < marketing.length; i++) {
+                    if (employee.getPosition().getClass().equals(marketing[i].getClass())) {
+                        i++;
+                        System.out.println("What salary do you wanna set?(" + marketing[i].getMinSalary() + "-" + marketing[i].getMaxSalary() + ")");
+                        int salary = in.nextInt();
+                        marketing[i].setDepartment(Department.MARKETING);
+                        employee.setPosition(marketing[i]);
+                        Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+                    }
+                }
+            }
+        } else if(employee.getPosition().getDepartment().equals(Department.DEVELOPMENT)){
+            if(employee.getPosition().getClass().equals(development[development.length-1].getClass())){
+                System.out.println("You can't give a raise to this employee. He is already on the highest position");
+            }else {
+                for (int i = 0; i < development.length-1; i++) {
+                    if (employee.getPosition().getClass().equals(development[i].getClass())) {
+                        i++;
+                        System.out.println("What salary do you wanna set?(" + development[i].getMinSalary() + "-" + development[i].getMaxSalary() + ")");
+                        int salary = in.nextInt();
+                        development[i].setDepartment(Department.DEVELOPMENT);
+                        employee.setPosition(development[i]);
+                        Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+                    }
+                }
+            }
         }
     }
     public static void lowerPosition(Employee employee){
-        BigDecimal salary;
-
         Scanner in=new Scanner(System.in);
-        if(employee.getPosition() instanceof Trainee){
-            System.out.println("You can't lower this position");
-        }else if(employee.getPosition() instanceof Specialist){
-            employee.setPosition(new Trainee());
-            System.out.println("What salary do you wanna set?(300-600)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof HeadOfMarketing){
-            employee.setPosition(new Specialist());
-            System.out.println("What salary do you wanna set?(500-1200)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof Manager){
-            System.out.println("You can't lower this position");
-        }else if(employee.getPosition() instanceof SeniorManager){
-            employee.setPosition(new Manager());
-            System.out.println("What salary do you wanna set?(400-800)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof HeadOfHR){
-            employee.setPosition(new SeniorManager());
-            System.out.println("What salary do you wanna set?(700-1100)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof JuniorDeveloper){
-            System.out.println("You can't lower this position");
-        }else if(employee.getPosition() instanceof MiddleDeveloper){
-            employee.setPosition(new JuniorDeveloper());
-            System.out.println("What salary do you wanna set?(400-1000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof SeniorDeveloper){
-            employee.setPosition(new MiddleDeveloper());
-            System.out.println("What salary do you wanna set?(800-2000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
-        }else if(employee.getPosition() instanceof TeamLead){
-            employee.setPosition(new SeniorDeveloper());
-            System.out.println("What salary do you wanna set?(1800-4000)");
-            int i=in.nextInt();
-            salary=BigDecimal.valueOf(i);
-            Accounting.changeSalary(employee,salary);
+        if(employee.getPosition().getDepartment().equals(Department.HR)){
+            if(employee.getPosition().getClass().equals(hr[0].getClass())){
+                System.out.println("Employee is fired");
+                FileManager.employees.remove(employee);
+            }else {
+                for (int i = 0; i < hr.length-1; i++) {
+                    if (employee.getPosition().getClass().equals(hr[i].getClass())) {
+                        i--;
+                        System.out.println("What salary do you wanna set?(" + hr[i].getMinSalary() + "-" + hr[i].getMaxSalary() + ")");
+                        int salary = in.nextInt();
+                        hr[i].setDepartment(Department.HR);
+                        employee.setPosition(hr[i]);
+                        Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+                    }
+                }
+            }
+        }else if(employee.getPosition().getDepartment().equals(Department.MARKETING)){
+            if(employee.getPosition().getClass().equals(marketing[0].getClass())){
+                System.out.println("Employee is fired");
+                FileManager.employees.remove(employee);
+            }else {
+                for (int i = 0; i < marketing.length; i++) {
+                    if (employee.getPosition().getClass().equals(marketing[i].getClass())) {
+                        i--;
+                        System.out.println("What salary do you wanna set?(" + marketing[i].getMinSalary() + "-" + marketing[i].getMaxSalary() + ")");
+                        int salary = in.nextInt();
+                        marketing[i].setDepartment(Department.MARKETING);
+                        employee.setPosition(marketing[i]);
+                        Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+                    }
+                }
+            }
+        } else if(employee.getPosition().getDepartment().equals(Department.DEVELOPMENT)){
+            if(employee.getPosition().getClass().equals(development[0].getClass())){
+                System.out.println("Employee is fired");
+                FileManager.employees.remove(employee);
+            }else {
+                for (int i = 0; i < development.length-1; i++) {
+                    if (employee.getPosition().getClass().equals(development[i].getClass())) {
+                        i--;
+                        System.out.println("What salary do you wanna set?(" + development[i].getMinSalary() + "-" + development[i].getMaxSalary() + ")");
+                        int salary = in.nextInt();
+                        development[i].setDepartment(Department.DEVELOPMENT);
+                        employee.setPosition(development[i]);
+                        Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+                    }
+                }
+            }
         }
     }
 }
