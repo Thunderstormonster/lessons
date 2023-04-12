@@ -6,13 +6,16 @@ import java.util.*;
 
 public class DepartmentManager {
 
+    static Map<Department,ArrayList<Position>> departmentPositions=new HashMap<>();
+    //indexof()==-1??
+
+
     static Position[] marketing=new Position[]{new Trainee(),new Specialist(),new HeadOfMarketing()};
     static Position[] hr=new Position[]{new Manager(),new SeniorManager(),new HeadOfHR()};
     static Position[] development=new Position[]{new JuniorDeveloper(),new MiddleDeveloper(),new SeniorDeveloper(),new TeamLead()};
 
 
     public static void changeDepartment(Employee employee) {
-
         Scanner in = new Scanner(System.in);
 
         Department department;
@@ -89,6 +92,37 @@ public class DepartmentManager {
 
     public static void raisePosition(Employee employee){
         Scanner in=new Scanner(System.in);
+
+        /*ArrayList<Position> marketing=new ArrayList<Position>();
+        //(Arrays.asList(new Trainee(),new Specialist(),new HeadOfMarketing()))
+        marketing.add(new Trainee());
+        marketing.add(new Specialist());
+        marketing.add(new HeadOfMarketing());
+        departmentPositions.put(Department.MARKETING,marketing);
+        //departmentPositions.put(Department.MARKETING,"Specialist");
+        //departmentPositions.put(Department.MARKETING,"HeadOfMarketing");
+        departmentPositions.put(Department.HR,new ArrayList<Position>(Arrays.asList(new Manager(),new SeniorManager(),new HeadOfMarketing())));
+        //departmentPositions.put(Department.HR,"SeniorManager");
+        //departmentPositions.put(Department.HR,"HeadOfHR");
+
+        Position employeePosition = employee.getPosition();
+        Department employeeDepartment = employeePosition.getDepartment();
+
+
+        System.out.print(departmentPositions.get(employeeDepartment).get(departmentPositions.get(employeeDepartment).indexOf(cl)));
+
+       /*if(departmentPositions.get(employeeDepartment).get(departmentPositions.get(employeeDepartment).size()-1).getClass().equals(employeePosition.getClass())){
+           System.out.println("You can't give a raise to this employee. He is already on the highest position");
+       }else {
+           //System.out.print(employeePosition);
+           //System.out.print(departmentPositions.get(employeeDepartment).get(departmentPositions.get(employeeDepartment).indexOf(employeePosition)));
+           Position nextPosition=departmentPositions.get(employeeDepartment).get(departmentPositions.get(employeeDepartment).);
+           //System.out.print(nextPosition);
+           System.out.println("What salary do you wanna set?(" + nextPosition.getMinSalary() + "-" + nextPosition.getMaxSalary() + ")");
+           int salary = in.nextInt();
+           employee.setPosition(nextPosition);
+           Accounting.changeSalary(employee, BigDecimal.valueOf(salary));
+       }*/
 
         if(employee.getPosition().getDepartment().equals(Department.HR)){
             if(employee.getPosition().getClass().equals(hr[hr.length-1].getClass())){

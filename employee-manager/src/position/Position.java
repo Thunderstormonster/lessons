@@ -1,8 +1,9 @@
 package position;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public interface Position {
+public interface Position extends Serializable {
     String getName();
     Department getDepartment();
     BigDecimal getMinSalary();

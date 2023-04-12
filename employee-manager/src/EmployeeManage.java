@@ -1,5 +1,6 @@
 import position.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -92,7 +93,11 @@ public class EmployeeManage {
             }
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
+        FileManager.readEmployee();
+        //FileManager.addEmployee(new Employee("Timothy","Dalton",192,new HeadOfMarketing(Department.MARKETING),"12/02/2000", BigDecimal.valueOf(300),"25/12/2022"));
+        //FileManager.addEmployee(new Employee("Anna","May",188,new Specialist(Department.MARKETING),"02/03/2010", BigDecimal.valueOf(900),"23/05/2015"));
 
         Scanner in=new Scanner(System.in);
 
@@ -106,9 +111,11 @@ public class EmployeeManage {
                     break;
                 case 2:
                     EmployeeManage.createEmployee();
+                    FileManager.saveEmployee(FileManager.employees);
                     break;
                 case 3:
                     EmployeeManage.removeEmployee();
+                    FileManager.saveEmployee(FileManager.employees);
                     break;
                 case 4:
                     for(int i=0;i<FileManager.employees.size();i++){
@@ -117,6 +124,7 @@ public class EmployeeManage {
                     System.out.println("What employee do you wanna transfer? ");
                     int id=in.nextInt();
                     DepartmentManager.changeDepartment(FileManager.employees.get(id));
+                    FileManager.saveEmployee(FileManager.employees);
                     break;
                 case 5:
                     for(int i=0;i<FileManager.employees.size();i++){
@@ -124,9 +132,10 @@ public class EmployeeManage {
                     }
                     System.out.println("What employee do you wanna change salary? ");
                     int i2=in.nextInt();
-                    System.out.println("What salary do you want to set? ");
+                    System.out.println("What salary do you want to set? ("+FileManager.employees.get(i2).getPosition().getMinSalary()+"-"+FileManager.employees.get(i2).getPosition().getMaxSalary()+")");
                     int salary=in.nextInt();
                     Accounting.changeSalary(FileManager.employees.get(i2),BigDecimal.valueOf(salary));
+                    FileManager.saveEmployee(FileManager.employees);
                     break;
                 case 6:
                     for(int i=0;i<FileManager.employees.size();i++){
@@ -135,6 +144,7 @@ public class EmployeeManage {
                     System.out.println("What employee do you wanna give a raise? ");
                     int i3=in.nextInt();
                     DepartmentManager.raisePosition(FileManager.employees.get(i3));
+                    FileManager.saveEmployee(FileManager.employees);
                     break;
                 case 7:
                     for(int i=0;i<FileManager.employees.size();i++){
@@ -143,6 +153,7 @@ public class EmployeeManage {
                     System.out.println("What employee do you wanna lower position? ");
                     int i4=in.nextInt();
                     DepartmentManager.lowerPosition(FileManager.employees.get(i4));
+                    FileManager.saveEmployee(FileManager.employees);
                     break;
             }
         }while (true);

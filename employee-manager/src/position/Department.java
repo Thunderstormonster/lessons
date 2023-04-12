@@ -1,6 +1,8 @@
 package position;
 
-public enum Department {
+import java.io.Serializable;
+
+public enum Department implements Serializable {
     MARKETING("Marketing"),
     HR("Human Resources"),
     DEVELOPMENT("Development");

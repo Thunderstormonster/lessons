@@ -1,9 +1,10 @@
 import position.Department;
 import position.Position;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Employee {
+public class Employee implements Serializable {
     private String name;
     private String surname;
     private int id;
