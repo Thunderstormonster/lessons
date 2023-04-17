@@ -4,7 +4,11 @@ import position.Position;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Employee implements Serializable {
+
+public class Employee  implements Serializable{
+
+    static final long serialVersionUID = -6172837466468368395L;
+
     private String name;
     private String surname;
     private int id;
@@ -12,6 +16,7 @@ public class Employee implements Serializable {
     private String dateOfEmployment;
     private BigDecimal salary;
     private String lastChangeOfSalary;
+
 
     public Employee(){}
 
@@ -80,6 +85,8 @@ public class Employee implements Serializable {
     public String getLastChangeOfSalary() {
         return lastChangeOfSalary;
     }
+
+    public Department getDepartment(){return position.getDepartment();}
 
     @Override
     public String toString() {

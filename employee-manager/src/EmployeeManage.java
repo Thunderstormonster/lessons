@@ -3,12 +3,16 @@ import position.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EmployeeManage {
 
     public static int showMenu(){
+        System.out.println("10. Employee of the highest positions");
+        System.out.println("9. Sort by salary;");
+        System.out.println("8. Group all employee by department;");
         System.out.println("7. Lower employees position;");
         System.out.println("6. Give a raise to the employee;");
         System.out.println("5. Change employee salary;");
@@ -21,6 +25,37 @@ public class EmployeeManage {
         Scanner num=new Scanner(System.in);
 
         return num.nextInt();
+    }
+    public static void highestEmployees(List<Employee> employees){
+        Stream<Employee> employeeStream= employees.stream();
+
+        List<Employee> map=employeeStream
+                .filter(employee -> employee.getPosition().getClass().equals(HeadOfHR.class)||employee.getPosition().getClass().equals(HeadOfMarketing.class)||employee.getPosition().getClass().equals(TeamLead.class))
+                .collect(Collectors.toList());
+        System.out.println(map);
+
+    }
+
+
+    public static void sortEmployeeBySalary(List<Employee> employees){
+        Stream<Employee> employeeStream= employees.stream();
+
+        List<Employee> map=employeeStream.sorted((x,y)->
+                y.getSalary().compareTo(x.getSalary()))
+                .collect(Collectors.toList());
+        System.out.println(map);
+
+    }
+
+    public static void groupEmployee(List<Employee> employees){
+        Stream<Employee> employeeStream= employees.stream();
+
+        Map<Department,List<Employee>> map=employeeStream.collect(Collectors.groupingBy(Employee::getDepartment));
+
+        for(Map.Entry<Department,List<Employee>> entry: map.entrySet()){
+            System.out.println(entry.getKey()+": "+entry.getValue().toString());
+        }
+
     }
 
     public static void createEmployee() throws NullPointerException{
@@ -46,23 +81,23 @@ public class EmployeeManage {
         switch (in.next()){
             case "Trainee":employee=new Employee(name,surname,id,new Trainee(Department.MARKETING),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Team Lead":employee=new Employee(name,surname,id,new TeamLead(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "TeamLead":employee=new Employee(name,surname,id,new TeamLead(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
             case "Specialist":employee=new Employee(name,surname,id,new Specialist(Department.MARKETING),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Senior Manager":employee=new Employee(name,surname,id,new SeniorManager(Department.HR),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "SeniorManager":employee=new Employee(name,surname,id,new SeniorManager(Department.HR),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Senior Developer":employee=new Employee(name,surname,id,new SeniorDeveloper(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "SeniorDeveloper":employee=new Employee(name,surname,id,new SeniorDeveloper(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Middle Developer":employee=new Employee(name,surname,id,new MiddleDeveloper(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "MiddleDeveloper":employee=new Employee(name,surname,id,new MiddleDeveloper(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
             case "Manager":employee=new Employee(name,surname,id,new Manager(Department.HR),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Junior Developer":employee=new Employee(name,surname,id,new JuniorDeveloper(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "JuniorDeveloper":employee=new Employee(name,surname,id,new JuniorDeveloper(Department.DEVELOPMENT),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Head of marketing":employee=new Employee(name,surname,id,new HeadOfMarketing(Department.MARKETING),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "HeadOfMarketing":employee=new Employee(name,surname,id,new HeadOfMarketing(Department.MARKETING),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
-            case "Head of hr":employee=new Employee(name,surname,id,new HeadOfHR(Department.HR),dateOfEmployment,BigDecimal.valueOf(0), null);
+            case "HeadOfHr":employee=new Employee(name,surname,id,new HeadOfHR(Department.HR),dateOfEmployment,BigDecimal.valueOf(0), null);
             break;
             default: System.out.println("No such position");
             break;
@@ -155,6 +190,16 @@ public class EmployeeManage {
                     DepartmentManager.lowerPosition(FileManager.employees.get(i4));
                     FileManager.saveEmployee(FileManager.employees);
                     break;
+                case 8:
+                    groupEmployee(FileManager.employees);
+                    break;
+                case 9:
+                    sortEmployeeBySalary(FileManager.employees);
+                    break;
+                case 10:
+                    highestEmployees(FileManager.employees);
+                    break;
+
             }
         }while (true);
     }
