@@ -48,12 +48,10 @@ public class EmployeeManage {
     }
 
     public static void groupEmployee(List<Employee> employees){
-        Stream<Employee> employeeStream= employees.stream();
-
-        Map<Department,List<Employee>> map=employeeStream.collect(Collectors.groupingBy(Employee::getDepartment));
+        Map<Department,List<Employee>> map=employees.stream().collect(Collectors.groupingBy(Employee::getDepartment));
 
         for(Map.Entry<Department,List<Employee>> entry: map.entrySet()){
-            System.out.println(entry.getKey()+": "+entry.getValue().toString());
+            System.out.println(entry.getKey()+": "+Arrays.toString(entry.getValue().toArray()));
         }
 
     }
