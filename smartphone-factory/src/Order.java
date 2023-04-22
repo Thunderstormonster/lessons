@@ -1,8 +1,8 @@
 public class Order {
-    String timeAndDateOfOrder;
-    Status status;
-    Smartphone smartphone;
-    int amount;
+    private String timeAndDateOfOrder;
+    private Status status;
+    private Smartphone smartphone;
+    private int amount;
 
     public Order(String timeAndDateOfOrder,Status status,Smartphone smartphone,int amount) {
         this.timeAndDateOfOrder=timeAndDateOfOrder;

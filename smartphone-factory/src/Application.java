@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class Application {
 
+    static SmartphoneFactory smartphoneFactory1=new SmartphoneFactory();
+
     public static Smartphone createSmartphone(){
         Scanner in=new Scanner(System.in);
 
@@ -35,7 +37,6 @@ public class Application {
         return in.nextInt();
     }
     public static void main(String[] args) throws ParseException {
-        SmartphoneFactory smartphoneFactory1=new SmartphoneFactory();
 
         Scanner in=new Scanner(System.in);
 
@@ -50,14 +51,7 @@ public class Application {
                     Smartphone smartphone=createSmartphone();
                     String timeAndDateOfOrder=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
                     Order order=new Order(timeAndDateOfOrder,Status.INPROCESS,smartphone,amount);
-                    //SmartphoneFactory.addOrder(order);
-                    if(smartphoneFactory1.getQueueOfOrders().isEmpty()){
-                        SmartphoneFactory.addOrder(order);
-                        SmartphoneFactory.produce();
-                    }else{
-                        SmartphoneFactory.addOrder(order);
-                    }
-
+                    SmartphoneFactory.addOrder(order);
                     break;
             }
 

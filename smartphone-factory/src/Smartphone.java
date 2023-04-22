@@ -1,8 +1,8 @@
-public class Smartphone {
-    String name;
-    String model;
-    int memoryCapacity;
-    int screenSize;
+public class Smartphone{
+    private String name;
+    private String model;
+    private int memoryCapacity;
+    private int screenSize;
 
     public Smartphone(String name,String model,int memoryCapacity, int screenSize) {
         this.name=name;
@@ -51,5 +51,16 @@ public class Smartphone {
                 ", memoryCapacity=" + memoryCapacity +
                 ", screenSize=" + screenSize +
                 '}';
+    }
+    public static void cloneSmartphone(Smartphone smartphone){
+        System.out.println("Im here");
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        Smartphone newSmartphone=new Smartphone(smartphone.getName(),
+                            smartphone.getModel(),smartphone.getMemoryCapacity(),
+                            smartphone.getScreenSize());
     }
 }
