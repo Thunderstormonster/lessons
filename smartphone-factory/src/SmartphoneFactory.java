@@ -1,9 +1,7 @@
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,51 +23,33 @@ public class SmartphoneFactory {
         this.queueOfOrders = queueOfOrders;
     }
 
-    public static void addOrder(Order order){
-        synchronized (queueOfOrders) {
-            //boolean isEmpty = getQueueOfOrders().isEmpty();
+    public static void addOrder(Order order) {
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfConveyor);
+
+            boolean isEmpty = getQueueOfOrders().isEmpty();
             queueOfOrders.add(order);
-            /*if (isEmpty) {
-                produce();
-            }*/
-            queueOfOrders.notifyAll();
-        }
+            if (isEmpty) {
+                executorService.submit(() -> {
+                    produce();
+                });
+            }
     }
 
     public static void  produce() {
-        ExecutorService executorService= Executors.newFixedThreadPool(numberOfConveyor);
-        while (true){
-            while (queueOfOrders.isEmpty()) {
-                try {
-                    queueOfOrders.wait();
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
+        if (!queueOfOrders.isEmpty()) {
+            Order order = queueOfOrders.poll();
+            int amount = order.getAmount();
+            Smartphone smartphone = order.getSmartphone();
 
+            for (int i = 0; i < amount; i++) {
+                Smartphone.cloneSmartphone();
             }
-                Order order = queueOfOrders.poll();
-                int amount = order.getAmount();
-                Smartphone smartphone = order.getSmartphone();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            String currentDate = LocalDateTime.now().format(formatter);
 
-                for (int i = 0; i < amount; i++) {
-                    executorService.submit(() -> {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        Smartphone newSmartphone = new Smartphone(smartphone.getName(),
-                                smartphone.getModel(), smartphone.getMemoryCapacity(),
-                                smartphone.getScreenSize());
-                    });
-                }
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                String currentDate = LocalDateTime.now().format(formatter);
+            System.out.println("Заказ от " + order.getTimeAndDateOfOrder() + " в количестве " + amount + " выполнен " + currentDate);
 
-                System.out.println("Заказ от " + order.getTimeAndDateOfOrder() + " в количестве " + amount + " выполнен " + currentDate);
-
-            }
         }
 
-
+    }
 }

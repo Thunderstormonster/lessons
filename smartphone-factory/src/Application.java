@@ -2,6 +2,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class Application {
 
@@ -36,7 +37,7 @@ public class Application {
 
         return in.nextInt();
     }
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args){
 
         Scanner in=new Scanner(System.in);
 
@@ -46,13 +47,14 @@ public class Application {
                     System.exit(0);
                     break;
                 case 1:
-                    System.out.println("How many smartphones do you want?");
-                    int amount=in.nextInt();
-                    Smartphone smartphone=createSmartphone();
-                    String timeAndDateOfOrder=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
-                    Order order=new Order(timeAndDateOfOrder,Status.INPROCESS,smartphone,amount);
-                    SmartphoneFactory.addOrder(order);
-                    break;
+                        System.out.println("How many smartphones do you want?");
+                        int amount = in.nextInt();
+                        Smartphone smartphone = createSmartphone();
+                        String timeAndDateOfOrder = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+                        Order order = new Order(timeAndDateOfOrder, Status.INPROCESS, smartphone, amount);
+                        SmartphoneFactory.addOrder(order);
+                        break;
+
             }
 
         }while(true);

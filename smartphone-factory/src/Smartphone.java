@@ -52,15 +52,16 @@ public class Smartphone{
                 ", screenSize=" + screenSize +
                 '}';
     }
-    public static void cloneSmartphone(Smartphone smartphone){
-        System.out.println("Im here");
-        try{
+    public static void cloneSmartphone(){
+        try {
             Thread.sleep(1000);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Smartphone newSmartphone=new Smartphone(smartphone.getName(),
-                            smartphone.getModel(),smartphone.getMemoryCapacity(),
-                            smartphone.getScreenSize());
+        Smartphone newSmartphone=new Smartphone("li",
+                           "li",12,
+                            23);
+
     }
+
 }
