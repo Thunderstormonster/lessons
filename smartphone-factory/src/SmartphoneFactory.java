@@ -48,6 +48,7 @@ public class SmartphoneFactory {
             String currentDate = LocalDateTime.now().format(formatter);
 
             System.out.println("Заказ от " + order.getTimeAndDateOfOrder() + " в количестве " + amount + " выполнен " + currentDate);
+            System.out.println(smartphone.toString());
 
         }
 

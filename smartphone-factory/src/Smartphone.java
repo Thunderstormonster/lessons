@@ -4,6 +4,10 @@ public class Smartphone{
     private int memoryCapacity;
     private int screenSize;
 
+    public Smartphone(String name,String model) {
+        this.name=name;
+        this.model=model;
+    }
     public Smartphone(String name,String model,int memoryCapacity, int screenSize) {
         this.name=name;
         this.model=model;
