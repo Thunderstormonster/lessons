@@ -1,9 +1,49 @@
-import java.lang.annotation.Annotation;
+import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Application {
+public class Application implements Observer{
+    public static File file=new File("F:\\lessons\\smartphone-factory\\orders.txt");
+    public static Order order;
+
+    String name;
+
+    public Application(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void handleEvent() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String currentDate = LocalDateTime.now().format(formatter);
+        try{
+            if(!file.exists())
+                file.createNewFile();
+
+            PrintWriter pw=new PrintWriter(file);
+            pw.println(name+": complete order;\n");
+            pw.println("==============================================\n");
+            pw.println("Order from " + order.getTimeAndDateOfOrder() + " in amount of " + order.getAmount() + " completed " + currentDate+"\n");
+            pw.println(order.getSmartphone().toString());
+
+            pw.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        /*
+        System.out.println(name+": выполнение заказа\n"+
+                "\n==============================================\n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String currentDate = LocalDateTime.now().format(formatter);
+
+        System.out.println("Заказ от " + order.getTimeAndDateOfOrder() + " в количестве " + order.getAmount() + " выполнен " + currentDate);
+        System.out.println(order.getSmartphone().toString());*/
+
+    }
+
 
     static SmartphoneFactory smartphoneFactory1=new SmartphoneFactory();
 
@@ -23,7 +63,8 @@ public class Application {
         return smartphone;
     }
     public static Smartphone chooseYourPrice(){
-        Smartphone smartphone=createSmartphone();
+        Director director=new Director();
+        SmartphoneBuilder builder=new SmartphoneBuilder();
 
         Smartphone newSmartphone=null;
         Scanner in=new Scanner(System.in);
@@ -37,67 +78,32 @@ public class Application {
                 System.out.println("You can choose where it come from: China or India");
                 s=in.next();
                 if(s.equals("China")){
-                    c="NoNameChinaSmartphone";
+                    director.constructNoNameChinaSmartphone(builder);
+                    newSmartphone=builder.getResult();
                 }else if(s.equals("India")){
-                    c="NoNameIndiaSmartphone";
+                   director.constructNoNameIndiaSmartphone(builder);
+                   newSmartphone=builder.getResult();
                 }
-                newSmartphone=cooseYourType(c,smartphone);
                 break;
             case "Middle":
-                c="TaiwanSmartphone";
-                newSmartphone=cooseYourType(c,smartphone);
+                director.constructTaiwanSmartphone(builder);
+                newSmartphone=builder.getResult();
                 break;
             case "High":
                 System.out.println("You can choose where it come from: USA or Korea");
                 s=in.next();
                 if(s.equals("USA")){
-                    c="TopUsaSmartphone";
+                   director.constructTopUsaSmartphone(builder);
+                   newSmartphone=builder.getResult();
                 }else if(s.equals("Korea")){
-                    c="TopKoreaSmartphone";
+                   director.constructTopKoreaSmartphone(builder);
+                   newSmartphone=builder.getResult();
                 }
-                newSmartphone=cooseYourType(c,smartphone);
                 break;
         }
         return newSmartphone;
     }
 
-    public static Smartphone cooseYourType(String type,Smartphone smartphone){
-
-        Class aClass=null;
-
-        if(type.equals("NoNameChinaSmartphone")){
-            aClass=NoNameChinaSmartphone.class;
-        }else if(type.equals("NoNameIndiaSmartphone")){
-            aClass=NoNameIndiaSmartphone.class;
-        }else if(type.equals("TaiwanSmartphone")){
-            aClass=TaiwanSmartphone.class;
-        }else if(type.equals("TopKoreaSmartphone")){
-            aClass=TopKoreaSmartphone.class;
-        }else if(type.equals("TopUsaSmartphone")){
-            aClass=TopUsaSmartphone.class;
-        }
-
-        Annotation[] annotations = aClass.getAnnotations();
-
-
-        for (Annotation annotation : annotations) {
-            if(annotation instanceof BudgetSmartphone) {
-                BudgetSmartphone bAnnotation = (BudgetSmartphone) annotation;
-               smartphone.setMemoryCapacity(bAnnotation.memoryCapacity());
-               smartphone.setScreenSize(bAnnotation.screenSize());
-            }else if(annotation instanceof MidTierSmartphone){
-                MidTierSmartphone mAnnotation = (MidTierSmartphone) annotation;
-                smartphone.setMemoryCapacity(mAnnotation.memoryCapacity());
-                smartphone.setScreenSize(mAnnotation.screenSize());
-            }else if(annotation instanceof FlagshipSmartphone){
-                FlagshipSmartphone fAnnotation=(FlagshipSmartphone) annotation;
-                smartphone.setMemoryCapacity(fAnnotation.memoryCapacity());
-                smartphone.setScreenSize(fAnnotation.screenSize());
-            }
-
-        }
-        return smartphone;
-    }
     public static int showMenu(){
         System.out.println("1. Make an order;");
         System.out.println("0. Exit;");
@@ -120,8 +126,10 @@ public class Application {
                         int amount = in.nextInt();
                         Smartphone smartphone = chooseYourPrice();
                         String timeAndDateOfOrder = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
-                        Order order = new Order(timeAndDateOfOrder, Status.INPROCESS, smartphone, amount);
-                        SmartphoneFactory.addOrder(order);
+                        order = new Order(timeAndDateOfOrder, Status.INPROCESS, smartphone, amount);
+                        smartphoneFactory1.addOrder(order);
+                        smartphoneFactory1.addObserver(new Application("Name"));
+
                         break;
                 case 2:
                     Smartphone smartphone1=chooseYourPrice();
@@ -132,4 +140,6 @@ public class Application {
 
         }while(true);
     }
+
+
 }

@@ -1,0 +1,7 @@
+Name: complete order;
+
+==============================================
+
+Order from 27-04-2023 13:58:52 in amount of 5 completed 27-04-2023 13:58:57
+
+Smartphone{name='li', model='li', memoryCapacity=270, screenSize=10}
