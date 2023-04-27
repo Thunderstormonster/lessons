@@ -55,6 +55,11 @@ public class SmartphoneBuilder implements Builder {
         }
     }
 
+    public void componentOfName(Smartphone smartphone,Builder builder){
+        builder.setName(smartphone.getName());
+        builder.setModel(smartphone.getModel());
+    }
+
     public Smartphone getResult(){
         return new Smartphone(name,model,memoryCapacity,screenSize);
     }
