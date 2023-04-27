@@ -1,3 +1,11 @@
+import builder.Director;
+import factory.Order;
+import factory.Smartphone;
+import builder.SmartphoneBuilder;
+import factory.SmartphoneFactory;
+import observe.Observer;
+import smartphoneType.Status;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -5,10 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Application implements Observer{
+public class Application implements Observer {
+    static SmartphoneFactory smartphoneFactory1=new SmartphoneFactory();
     public static File file=new File("F:\\lessons\\smartphone-factory\\orders.txt");
     public static Order order;
-
     String name;
 
     public Application(String name) {
@@ -26,51 +34,22 @@ public class Application implements Observer{
             PrintWriter pw=new PrintWriter(file);
             pw.println(name+": complete order;\n");
             pw.println("==============================================\n");
-            pw.println("Order from " + order.getTimeAndDateOfOrder() + " in amount of " + order.getAmount() + " completed " + currentDate+"\n");
+            pw.println("factory.Order from " + order.getTimeAndDateOfOrder() + " in amount of " + order.getAmount() + " completed " + currentDate+"\n");
             pw.println(order.getSmartphone().toString());
 
             pw.close();
         }catch (IOException e){
             e.printStackTrace();
         }
-        /*
-        System.out.println(name+": выполнение заказа\n"+
-                "\n==============================================\n");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String currentDate = LocalDateTime.now().format(formatter);
-
-        System.out.println("Заказ от " + order.getTimeAndDateOfOrder() + " в количестве " + order.getAmount() + " выполнен " + currentDate);
-        System.out.println(order.getSmartphone().toString());*/
-
     }
 
-
-    static SmartphoneFactory smartphoneFactory1=new SmartphoneFactory();
-
-    public static Smartphone createSmartphone(){
-        Scanner in=new Scanner(System.in);
-
-        String name;
-        String model;
-
-        System.out.println("What is the name of your smartphone?");
-        name=in.nextLine();
-        System.out.println("What is the model of your smartphone?");
-        model=in.nextLine();
-
-        Smartphone smartphone=new Smartphone(name,model);
-
-        return smartphone;
-    }
     public static Smartphone chooseYourPrice(){
         Director director=new Director();
         SmartphoneBuilder builder=new SmartphoneBuilder();
-
         Smartphone newSmartphone=null;
-        Scanner in=new Scanner(System.in);
+        String s="";
 
-        String c=null;
-        String s=null;
+        Scanner in=new Scanner(System.in);
 
         System.out.println("What type of the phone do you choose?(Cheap,Middle,High)");
         switch (in.nextLine()){
@@ -131,15 +110,8 @@ public class Application implements Observer{
                         smartphoneFactory1.addObserver(new Application("Name"));
 
                         break;
-                case 2:
-                    Smartphone smartphone1=chooseYourPrice();
-                    System.out.println(smartphone1.toString());
-
-
             }
 
         }while(true);
     }
-
-
 }

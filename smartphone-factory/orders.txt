@@ -2,6 +2,6 @@ Name: complete order;
 
 ==============================================
 
-Order from 27-04-2023 13:58:52 in amount of 5 completed 27-04-2023 13:58:57
+factory.Order from 27-04-2023 18:48:44 in amount of 5 completed 27-04-2023 18:48:49
 
-Smartphone{name='li', model='li', memoryCapacity=270, screenSize=10}
+factory.Smartphone{name='li', model='li', memoryCapacity=270, screenSize=10}
